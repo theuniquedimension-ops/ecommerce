@@ -1,0 +1,251 @@
+/* Design Tokens */
+:root {
+    --bg: #EAF1FF;
+    --surface: #ffffff;
+    --text: #1a1a2e;
+    --text-muted: #8e8ea0;
+    --accent: #d4af37;
+    --error: #e63946;
+    --success: #2a9d8f;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --transition-fast: 200ms ease;
+    --transition-smooth: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    --leading-relaxed: 1.6;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+/* Header */
+.header {
+    padding: 10px;
+}
+
+/* Navbar Layout */
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 20px 40px;
+    background-color: #EAF1FF;
+}
+
+/* links */
+.links {
+    display: flex;
+    gap: 30px;
+}
+
+.links a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+
+.links a:hover {
+    color: gray;
+}
+
+/* ChatGPT Style Search Bar */
+.searchBox {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    padding: 8px 15px;
+    width: 280px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+}
+
+.searchBox:hover {
+    border-color: gray;
+}
+
+.searchBox:focus-within {
+    border-color: black;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.searchInput {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    width: 100%;
+    background: transparent;
+}
+
+.searchIcon {
+    font-size: 18px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+}
+
+/* Apple Style Cart + Account */
+.icons {
+    display: flex;
+    gap: 25px;
+    margin-left: auto;
+}
+
+.custom-icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.custom-icon:hover {
+    transform: scale(1.1);
+}
+
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+.hero-content h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 20px;
+}
+
+/* Categories Grid */
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 60px;
+    flex-wrap: wrap;
+}
+
+/* Card Box */
+.card {
+    width: 230px;
+    text-align: center;
+}
+
+/* Card Image */
+.carding {
+    width: 100%;
+    height: 300px;
+    border-radius: 30px;
+    object-fit: cover;
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Title */
+.card h2 {
+    margin-top: 15px;
+    font-size: 22px;
+}
+
+/* collections section */
+.collections {
+    padding: 40px;
+}
+
+/* Title */
+.sectionTitle {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Slider Layout */
+.slider {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 15px;
+}
+
+/* Hide Scrollbar */
+.slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* Featured Section Layout */
+.featuredSection {
+    display: flex;
+    gap: 30px;
+    padding: 60px;
+}
+
+/* Left Banner */
+.featuredBanner {
+    flex: 2;
+    height: 420px;
+}
+
+.featuredBanner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+}

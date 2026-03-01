@@ -1,0 +1,172 @@
+# Luxe — Premium Ecommerce Project Walkthrough
+
+## What Was Built
+
+A complete full-stack premium ecommerce store — **Luxe** — with a luxury aesthetic inspired by Kimirica/Nykaa Luxe.
+
+---
+
+## Frontend (React + Vite)
+
+### Design System
+- **CSS custom properties** for all color tokens, spacing, typography, shadows, animations
+- **Colors**: Background `#EAF1FF`, Primary `#1A1A2E` (navy), Accent `#B8860B` (gold)
+- **Fonts**: Playfair Display (headings, serif, italic) + Inter (body, sans-serif) via Google Fonts
+- **Global animations**: fadeInUp, fadeIn, slideIn, scaleIn, shimmer (skeleton loading)
+
+### Pages Built (10 total)
+| Page | Route | Features |
+|------|-------|---------|
+| HomePage | `/` | Hero, CategoryGrid, Featured Products, Promo Banner, Best Sellers, USP Strip, Newsletter |
+| ProductsPage | `/products` | Sidebar filter (category, price range), sort, search, grid/list view |
+| ProductDetailPage | `/products/:slug` | Image gallery, rating stars, qty control, add-to-cart, wishlist, tabs, reviews, related |
+| CartPage | `/cart` | Items list, qty control, order summary (subtotal+tax+shipping), coupon input |
+| CheckoutPage | `/checkout` | 4-step: Address → Shipping → Payment (Stripe) → Review |
+| LoginPage | `/login` | Email+password, show/hide password, error toast |
+| RegisterPage | `/register` | Name+email+password+confirm, validation |
+| DashboardPage | `/dashboard` | Profile edit, order history, saved addresses |
+| OrderConfirmationPage | `/order-confirmation/:id` | Success animation, order ID, status steps |
+| AdminPage | `/admin` | Sidebar nav, stats dashboard, products CRUD table, orders management |
+
+### Components Built
+- **Navbar** — sticky, backdrop-blur, hide-on-scroll-down, 3-column grid (search | logo | icons), mobile hamburger menu
+- **CartSidebar** — slide-in drawer with items, qty, subtotal, checkout link
+- **HeroSection** — full-viewport background image, dark overlay, serif headline, dual CTA
+- **CategoryGrid** — 4 clickable cards with image zoom + gradient overlay on hover
+- **ProductCard** — dual-image hover swap, badges (NEW/SALE), add-to-cart, quick view
+- **Footer** — dark premium, social icons, newsletter subscribe, multi-column nav
+
+### State Management
+- **CartContext** — useReducer with localStorage persistence, add/remove/updateQty/clear
+- **AuthContext** — JWT token management, axios header injection, login/register/logout
+
+---
+
+## Backend (Node.js + Express + MongoDB)
+
+### Server: [backend/server.js](file:///c:/Users/khush/OneDrive/Desktop/ecommerce/backend/server.js)
+- Helmet (security headers)
+- CORS (frontend URL whitelist)
+- Rate limiting (200 req/15min globally, 10 req/min for auth)
+- Morgan logging
+- Raw body for Stripe webhooks
+
+### Models
+| Model | Key Fields |
+|-------|-----------|
+| User | name, email, password (bcrypt), role, addresses[], refreshTokens[] |
+| Product | title, slug, images[], price, compareAtPrice, categories[], tags[], inventory, variants[], badge, rating, featured |
+| Order | user ref, items[], shippingAddress, paymentIntentId, paymentStatus, status, subtotal/tax/total |
+| Review | product+user refs, rating 1-5, comment, verified, unique per user+product |
+
+### API Routes
+| Route File | Endpoints |
+|-----------|-----------|
+| auth.js | POST register, login, refresh, logout |
+| products.js | GET list (filter/sort/paginate/search), GET by slug, POST/PUT/DELETE (admin) |
+| cart.js | GET, POST add/update, DELETE item, DELETE all (JWT protected) |
+| orders.js | POST create+Stripe PaymentIntent, GET list, GET by ID |
+| users.js | GET me, PUT me, POST address, DELETE address |
+| admin.js | GET dashboard stats, GET/PUT orders, GET users, PUT user role |
+| webhook.js | POST Stripe events (payment_intent.succeeded/failed) |
+
+### Security
+- JWT access tokens (15min) + rotating refresh tokens (7 days)
+- bcrypt password hashing (salt rounds: 12)
+- Rate limiting on all routes + stricter limits on auth
+- Helmet headers, CORS whitelist
+- Centralized error handler (Mongoose validation, duplicate key, CastError, JWT)
+
+---
+
+## Verification
+
+### ✅ Frontend Build
+```
+✓ built in 2.29s  (vite build — 0 errors)
+```
+
+### ✅ Backend Dependencies
+All packages installed successfully via `npm install`.
+
+---
+
+## How to Run
+
+```bash
+# Terminal 1 — Frontend
+cd frontend
+npm run dev     → http://localhost:5173
+
+# Terminal 2 — Backend (after filling .env)
+cd backend
+npm run dev     → http://localhost:5000
+
+# Seed sample data
+cd backend
+node seeds/seed.js
+```
+
+### Seed Credentials
+- **Admin**: `admin@luxe.store` / `Admin@123456`
+- **User**: `user@luxe.store` / `User@123456`
+
+---
+
+## File Structure Summary
+
+```
+ecommerce/
+├── README.md
+├── frontend/
+│   └── src/
+│       ├── App.jsx              # Router shell
+│       ├── main.jsx             # BrowserRouter + Providers + Toaster
+│       ├── index.css            # Full design system CSS (400+ lines)
+│       ├── App.css              # App shell only
+│       ├── context/
+│       │   ├── CartContext.jsx
+│       │   └── AuthContext.jsx
+│       ├── components/
+│       │   ├── Navbar.jsx + .css
+│       │   ├── CartSidebar.jsx + .css
+│       │   ├── ProductCard.jsx + .css
+│       │   ├── HeroSection.jsx + .css
+│       │   ├── CategoryGrid.jsx + .css
+│       │   ├── Footer.jsx + .css
+│       │   └── ProductSection.jsx (original, preserved)
+│       └── pages/
+│           ├── HomePage.jsx + .css
+│           ├── ProductsPage.jsx + .css
+│           ├── ProductDetailPage.jsx + .css
+│           ├── CartPage.jsx + .css
+│           ├── CheckoutPage.jsx + .css
+│           ├── LoginPage.jsx
+│           ├── RegisterPage.jsx
+│           ├── AuthPages.css     (shared auth styles)
+│           ├── DashboardPage.jsx + .css
+│           ├── OrderConfirmationPage.jsx + .css
+│           └── AdminPage.jsx + .css
+│
+└── backend/
+    ├── server.js
+    ├── .env + .env.example
+    ├── models/
+    │   ├── User.js
+    │   ├── Product.js
+    │   ├── Order.js
+    │   └── Review.js
+    ├── routes/
+    │   ├── auth.js
+    │   ├── products.js
+    │   ├── cart.js
+    │   ├── orders.js
+    │   ├── users.js
+    │   ├── admin.js
+    │   └── webhook.js
+    ├── middleware/
+    │   ├── auth.js
+    │   └── errorHandler.js
+    └── seeds/
+        └── seed.js
+```
