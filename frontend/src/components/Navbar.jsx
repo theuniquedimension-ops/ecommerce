@@ -39,73 +39,81 @@ export default function Navbar() {
         <>
             <header className="navbar">
                 <div className="container navbar-inner">
-                    {/* Mobile Hamburger */}
-                    <button
-                        className="navbar-menu-btn"
-                        aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    >
-                        {mobileMenuOpen ? <X strokeWidth={1.5} /> : <Menu strokeWidth={1.5} />}
-                    </button>
-
-                    {/* Logo */}
-                    <Link to="/" className="navbar-logo" aria-label="Home">
-                        <img src={logo} alt="Brand Logo" height={32} />
-                    </Link>
-
-                    {/* Desktop Nav Links */}
-                    <nav className="navbar-links" aria-label="Main navigation">
-                        {NAV_LINKS.map(({ label, slug }) => (
-                            <Link
-                                key={slug}
-                                to={`/products?category=${slug}`}
-                                className={location.search.includes(`category=${slug}`) ? 'active' : ''}
-                            >
-                                {label}
-                            </Link>
-                        ))}
-                    </nav>
-
-                    {/* Search Box (desktop) */}
-                    <form className="navbar-search" onSubmit={handleSearch}>
-                        <button type="submit" className="search-icon-inside" aria-label="Search">
-                            <Search size={18} strokeWidth={1.5} />
+                    {/* Left Section: Mobile Menu + Search Component */}
+                    <div className="navbar-left">
+                        {/* Mobile Hamburger */}
+                        <button
+                            className="navbar-menu-btn"
+                            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        >
+                            {mobileMenuOpen ? <X strokeWidth={1.5} /> : <Menu strokeWidth={1.5} />}
                         </button>
-                        <input
-                            type="search"
-                            placeholder="Search products..."
-                            aria-label="Search products"
-                            className="search-input"
-                            value={searchQuery}
-                            onChange={e => setSearchQuery(e.target.value)}
-                        />
-                    </form>
 
-                    {/* Icons */}
-                    <div className="navbar-icons">
-                        {user ? (
-                            <div className="user-menu-desktop">
-                                <Link to="/dashboard" className="icon-btn" aria-label="Account" title="My Account">
+                        {/* Search Box (desktop) */}
+                        <form className="navbar-search" onSubmit={handleSearch}>
+                            <button type="submit" className="search-icon-inside" aria-label="Search">
+                                <Search size={18} strokeWidth={1.5} />
+                            </button>
+                            <input
+                                type="search"
+                                placeholder="Search products..."
+                                aria-label="Search products"
+                                className="search-input"
+                                value={searchQuery}
+                                onChange={e => setSearchQuery(e.target.value)}
+                            />
+                        </form>
+                    </div>
+
+                    {/* Logo (Center) */}
+                    <div className="navbar-center">
+                        <Link to="/" className="navbar-logo" aria-label="Home">
+                            <img src={logo} alt="Brand Logo" height={32} />
+                        </Link>
+                    </div>
+
+                    {/* Desktop Nav Links & Icons (Right) */}
+                    <div className="navbar-right">
+                        <nav className="navbar-links" aria-label="Main navigation">
+                            {NAV_LINKS.map(({ label, slug }) => (
+                                <Link
+                                    key={slug}
+                                    to={`/products?category=${slug}`}
+                                    className={location.search.includes(`category=${slug}`) ? 'active' : ''}
+                                >
+                                    {label}
+                                </Link>
+                            ))}
+                        </nav>
+
+
+                        {/* Icons */}
+                        <div className="navbar-icons">
+                            {user ? (
+                                <div className="user-menu-desktop">
+                                    <Link to="/dashboard" className="icon-btn" aria-label="Account" title="My Account">
+                                        <User strokeWidth={1.5} />
+                                    </Link>
+                                    <button onClick={logout} className="icon-btn logout-btn" aria-label="Logout" title="Logout">
+                                        <LogOut strokeWidth={1.5} />
+                                    </button>
+                                </div>
+                            ) : (
+                                <Link to="/login" className="icon-btn" aria-label="Login" title="Login">
                                     <User strokeWidth={1.5} />
                                 </Link>
-                                <button onClick={logout} className="icon-btn logout-btn" aria-label="Logout" title="Logout">
-                                    <LogOut strokeWidth={1.5} />
-                                </button>
-                            </div>
-                        ) : (
-                            <Link to="/login" className="icon-btn" aria-label="Login" title="Login">
-                                <User strokeWidth={1.5} />
-                            </Link>
-                        )}
-
-                        <button className="icon-btn" aria-label="Cart" onClick={() => setCartOpen(true)}>
-                            <ShoppingCart strokeWidth={1.5} />
-                            {totalItems > 0 && (
-                                <span className="cart-badge" aria-label={`${totalItems} items in cart`}>
-                                    {totalItems > 99 ? '99+' : totalItems}
-                                </span>
                             )}
-                        </button>
+
+                            <button className="icon-btn" aria-label="Cart" onClick={() => setCartOpen(true)}>
+                                <ShoppingCart strokeWidth={1.5} />
+                                {totalItems > 0 && (
+                                    <span className="cart-badge" aria-label={`${totalItems} items in cart`}>
+                                        {totalItems > 99 ? '99+' : totalItems}
+                                    </span>
+                                )}
+                            </button>
+                        </div>
                     </div>
                 </div>
 

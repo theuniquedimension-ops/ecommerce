@@ -7,6 +7,50 @@ import logo from '../assets/logo.png';
 export default function Footer() {
     return (
         <footer className="footer">
+            <div className="container footer-philosophy">
+                <h2 className="philosophy-title">The Unique Dimension Store</h2>
+                <p className="philosophy-intro">Welcome to The Unique Dimension — where purity meets purpose.</p>
+
+                <div className="philosophy-body">
+                    <p>
+                        We are not simply a store. We are a philosophy of refined living.
+                    </p>
+                    <p>
+                        Our collections are thoughtfully curated around one uncompromising principle: harmony between the human body and the natural world. Every product we offer is ecosystem-conscious, authentically natural, and designed to elevate well-being without exposing you to harmful chemicals or artificial compromises.
+                    </p>
+                    <p className="philosophy-statements">
+                        We believe luxury is not excess.<br />
+                        Luxury is purity.<br />
+                        Luxury is safety.<br />
+                        Luxury is integrity.
+                    </p>
+                    <p>
+                        The Unique Dimension was created for those who choose awareness over convenience and quality over noise. Our mission is to offer original, body-safe, and environmentally responsible products that reflect both sophistication and responsibility.
+                    </p>
+                    <p>
+                        Beyond natural wellness essentials, we also present a refined selection of artistic outfits inspired by Indian heritage, along with premium fitness gear crafted to complement a strong and balanced lifestyle.
+                    </p>
+                    <p className="philosophy-statements">
+                        We honor Indian arts.<br />
+                        We respect Indian science.<br />
+                        We celebrate conscious living.
+                    </p>
+                </div>
+
+                <p className="philosophy-outro">
+                    Step into a dimension where elegance meets nature, and strength meets authenticity.
+                </p>
+
+                <p className="philosophy-signature">
+                    <strong>The Unique Dimension</strong><br />
+                    <span>Redefining luxury through purity.</span>
+                </p>
+            </div>
+
+            <div className="footer-divider-container container">
+                <hr className="footer-divider" />
+            </div>
+
             <div className="container footer-inner">
                 <div className="footer-col brand">
                     <Link to="/">

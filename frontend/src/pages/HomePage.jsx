@@ -5,7 +5,7 @@ import { ShoppingBag, Star, ShieldCheck, Truck, CreditCard, MessageSquare, Arrow
 import { useCart } from '../context/CartContext';
 import { motion } from 'framer-motion';
 import { useScrollAnimation, useStaggeredScrollAnimation } from '../hooks/useScrollAnimation';
-import PromoSection from '../components/PromoSection';
+
 import ProductCard from '../components/ProductCard';
 import MetaHelmet from '../components/MetaHelmet';
 
@@ -62,23 +62,9 @@ export default function HomePage() {
         ? products.filter(p => p.badge === "Bestseller").slice(0, 4)
         : arrivals.slice(0, 4);
 
-    const testimonials = [
-        { id: 1, name: "Aarav Sharma", comment: "The quality of the art prints is absolutely stunning. Truly unique!", rating: 5 },
-        { id: 2, name: "Isha Kapoor", comment: "Fast shipping and the packaging was very premium. Highly recommend.", rating: 5 },
-        { id: 3, name: "Rohan Das", comment: "Best ecommerce experience I've had. The curated collections are top-notch.", rating: 4.5 },
-    ];
 
-    const [email, setEmail] = useState('');
-    const [subscribeStatus, setSubscribeStatus] = useState('');
 
-    const handleSubscribe = (e) => {
-        e.preventDefault();
-        if (email) {
-            setSubscribeStatus('Subscribed successfully! Please check your email to confirm.');
-            setEmail('');
-            setTimeout(() => setSubscribeStatus(''), 4000);
-        }
-    };
+
 
     const handleBuyNow = (product) => {
         addItem({
@@ -129,34 +115,6 @@ export default function HomePage() {
                 </motion.div>
             </section>
 
-            {/* ── Benefits ── */}
-            <section className="hp-benefits container">
-                <div className="benefit-item">
-                    <Truck size={24} className="benefit-icon" />
-                    <div>
-                        <h3>Free Shipping</h3>
-                        <p>On orders above ₹999</p>
-                    </div>
-                </div>
-                <div className="benefit-divider" />
-                <div className="benefit-item">
-                    <ShieldCheck size={24} className="benefit-icon" />
-                    <div>
-                        <h3>Secure Payment</h3>
-                        <p>100% safe transactions</p>
-                    </div>
-                </div>
-                <div className="benefit-divider" />
-                <div className="benefit-item">
-                    <CreditCard size={24} className="benefit-icon" />
-                    <div>
-                        <h3>Instant Support</h3>
-                        <p>Friendly 24/7 help</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* ── Categories ── */}
             <section className="hp-categories container">
                 <h2 className="hp-section-title text-center" ref={titleRef}>Explore Categories</h2>
                 <div className="hp-cat-row" ref={catRef}>
@@ -189,10 +147,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ── Promo 1 ── */}
-            <section className="hp-promo-wrap">
-                <PromoSection image={arts} products={artsFeatured} />
-            </section>
+
 
             {/* ── Best Sellers ── */}
             <section className="hp-collections container">
@@ -207,48 +162,9 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ── Promo 2 ── */}
-            <section className="hp-promo-wrap">
-                <PromoSection image={study} products={bestSellers.slice(0, 3)} />
-            </section>
 
-            {/* ── Testimonials ── */}
-            <section className="hp-testimonials container">
-                <h2 className="hp-section-title text-center">What Our Customers Say</h2>
-                <div className="testimonials-grid" ref={testimonialRef}>
-                    {testimonials.map(t => (
-                        <div key={t.id} className="testimonial-card stagger-item">
-                            <div className="t-stars">
-                                {Array.from({ length: 5 }).map((_, i) => (
-                                    <Star key={i} size={14} fill={i < Math.floor(t.rating) ? "var(--accent)" : "none"} stroke="var(--accent)" />
-                                ))}
-                            </div>
-                            <p className="t-comment">"{t.comment}"</p>
-                            <h4 className="t-name">— {t.name}</h4>
-                        </div>
-                    ))}
-                </div>
-            </section>
 
-            {/* ── Newsletter Subscription ── */}
-            <section className="hp-newsletter container">
-                <div className="newsletter-content">
-                    <Mail size={40} className="newsletter-icon" />
-                    <h2>Subscribe to Our Newsletter</h2>
-                    <p>Get exclusive access to new arrivals, premium collections, and special offers.</p>
-                    <form className="newsletter-form" onSubmit={handleSubscribe}>
-                        <input
-                            type="email"
-                            placeholder="Enter your email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                        <button type="submit" className="hp-hero-btn primary">Subscribe</button>
-                    </form>
-                    {subscribeStatus && <p className="subscribe-status">{subscribeStatus}</p>}
-                </div>
-            </section>
+
 
             {/* ── Final Call to Action ── */}
             <section className="hp-cta">
